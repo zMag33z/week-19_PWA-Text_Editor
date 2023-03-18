@@ -20,10 +20,13 @@ module.exports = () => {
     plugins: [
       
     ],
-
+    // added this rule
     module: {
       rules: [
-        
+        {
+          test: /\.css$/i,
+          use: ['style-loader', 'css-loader']
+        },
       ],
     },
   };
