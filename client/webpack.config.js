@@ -2,10 +2,12 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 // https://github.com/arthurbergmz/webpack-pwa-manifest/blob/master/README.md
 const WebpackPwaManifest = require('webpack-pwa-manifest');
-const path = require('path');
 // https://developer.chrome.com/docs/workbox/modules/workbox-webpack-plugin/
 const { InjectManifest } = require('workbox-webpack-plugin');
+const path = require('path');
 
+
+console.log('PATH- files to dist folder', __dirname);
 
 module.exports = () => {
   return {
@@ -14,32 +16,33 @@ module.exports = () => {
       main: './src/js/index.js',
       install: './src/js/install.js'
     },
-    output: {
+    output: {      
       filename: '[name].bundle.js',
       path: path.resolve(__dirname, 'dist'),
-    }, // Add and configure workbox plugins for a service worker and manifest file. https://webpack.js.org/guides/asset-management/#loading-images
+    }, // Add and configure workbox plugins for a service worker and manifest file. 
     plugins: [
       new HtmlWebpackPlugin({
         template: './index.html',
-        title: 'PWA - Text Editor'
+        title: 'J.A.T.E.',
       }),
       new InjectManifest({
         swSrc: './src-sw.js',
-        swDest: 'src-sw.js',
+        swDest: 'service-worker.js',
       }),
       new WebpackPwaManifest({
         fingerprints: false,
         inject: true,
-        name: 'Personal Text Editor',
+        name: 'jate - pwa',
         short_name: 'jate-pwa',
-        description: 'PWA as a Text Editor for online or offline purposes.',
+        description: 'Just another text editor.',
         background: '#272822',
         theme_color: '#31a9e1',
         start_url: '/',
         publicPath: '/',
         icons: [
-          {
+          { // https://webpack.js.org/guides/asset-management/#loading-images  hmm?  https://docusaurus.io/docs/next/api/plugins/@docusaurus/plugin-pwa
             src: path.resolve('src/images/logo.png'),
+            type: 'image/png',
             sizes: [96, 128, 192, 256, 384, 512],
             destination: path.join('assets', 'icons'),
           },
@@ -60,9 +63,9 @@ module.exports = () => {
               options: {
                 presets: ['@babel/preset-env'],
                 plugins: ["@babel/plugin-proposal-object-rest-spread", "@babel/transform-runtime"]
-              }
-          }
-        }
+              },
+          },
+        },
       ],
     },
   };

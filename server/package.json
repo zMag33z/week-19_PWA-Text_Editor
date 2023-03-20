@@ -1,7 +1,7 @@
 {
     "name": "jate-pwa",
     "version": "1.0.0",
-    "description": "Server only package.json",
+    "description": "Server only.",
     "main": "server.js",
     "scripts": {
         "server": "nodemon server.js --ignore client"
