@@ -29,7 +29,6 @@ registerRoute(({ request }) => request.mode === 'navigate', pageCache);
 // Implement asset caching https://developer.chrome.com/docs/workbox/modules/workbox-cacheable-response/
 registerRoute(
   ({ request }) => ['style', 'script', 'worker'].includes(request.destination),
-    // new CacheFirst({
       new StaleWhileRevalidate({
     cacheName: 'asset-cache',
     plugins: [
